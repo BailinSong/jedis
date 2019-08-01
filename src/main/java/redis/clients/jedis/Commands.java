@@ -384,4 +384,34 @@ public interface Commands {
 
   void migrate(String host, int port, String key, int destinationDB, int timeout);
 
+  void xadd(String key, StreamEntryID id, Map<String, String> hash, long maxLen, boolean approximateLength);
+
+  void xlen(String key);
+
+  void xrange(String key, StreamEntryID start, StreamEntryID end, long count);
+
+  void xrevrange(String key, StreamEntryID end, StreamEntryID start, int count);
+
+  void xread(int count, long block, Map.Entry<String, StreamEntryID>... streams);
+
+  void xack(String key, String group, StreamEntryID... ids);
+
+  void xgroupCreate(String key, String consumer, StreamEntryID id, boolean makeStream);
+
+  void xgroupSetID(String key, String consumer, StreamEntryID id);
+
+  void xgroupDestroy(String key, String consumer);
+
+  void xgroupDelConsumer(String key, String consumer, String consumerName);
+
+  void xdel(String key, StreamEntryID... ids);
+
+  void xtrim(String key, long maxLen, boolean approximateLength);
+
+  void xreadGroup(String groupname, String consumer, int count, long block, boolean noAck, Map.Entry<String, StreamEntryID>... streams);
+
+  void xpending(String key, String groupname, StreamEntryID start, StreamEntryID end, int count, String consumername);
+
+  void xclaim(String key, String group, String consumername, long minIdleTime, long newIdleTime, int retries,
+              boolean force, StreamEntryID... ids);
 }

@@ -1,6 +1,7 @@
 package redis.clients.jedis;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface MultiKeyBinaryCommands {
@@ -79,4 +80,9 @@ public interface MultiKeyBinaryCommands {
   Long pfcount(byte[]... keys);
 
   Long touch(byte[]... keys);
+
+  List<byte[]> xread(final int count, final long block, final Map<byte[], byte[]> streams);
+
+  List<byte[]> xreadGroup(byte[] groupname, byte[] consumer, int count, long block, boolean noAck, Map<byte[], byte[]> streams);
+
 }

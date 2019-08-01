@@ -82,6 +82,9 @@ public class Transaction extends MultiKeyPipelineBase implements Closeable {
     return client.getStatusCodeReply();
   }
 
+  public void setClient(Client client) {
+    this.client = client;
+  }
   @Override
   public void close() throws IOException {
     clear();

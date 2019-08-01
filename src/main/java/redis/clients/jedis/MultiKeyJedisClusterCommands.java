@@ -1,6 +1,7 @@
 package redis.clients.jedis;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface MultiKeyJedisClusterCommands {
@@ -71,4 +72,29 @@ public interface MultiKeyJedisClusterCommands {
   ScanResult<String> scan(String cursor, ScanParams params);
 
   Set<String> keys(String pattern);
+
+  /**
+   * XREAD [COUNT count] [BLOCK milliseconds] STREAMS key [key ...] ID [ID ...]
+   *
+
+   * @param count
+   * @param block
+   * @param streams
+   * @return
+   */
+  List<Map.Entry<String, List<StreamEntry>>> xread(int count, long block, Map.Entry<String, StreamEntryID>... streams);
+
+  /**
+   * XREAD [COUNT count] [BLOCK milliseconds] STREAMS key [key ...] ID [ID ...]
+   *
+
+   * @param groupname
+   * @param consumer
+   * @param count
+   * @param block
+   * @param streams
+   * @return
+   */
+  List<Map.Entry<String, List<StreamEntry>>> xreadGroup(String groupname, String consumer, int count, long block, final boolean noAck, Map.Entry<String, StreamEntryID>... streams);
+
 }

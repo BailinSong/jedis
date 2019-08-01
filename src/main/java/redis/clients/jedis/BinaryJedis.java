@@ -4022,4 +4022,110 @@ public class BinaryJedis implements BasicCommands, BinaryJedisCommands, MultiKey
     client.hstrlen(key, field);
     return client.getIntegerReply();
   }
+
+  @Override
+  public List<byte[]> xread(int count, long block, Map<byte[], byte[]> streams) {
+    checkIsInMultiOrPipeline();
+    client.xread(count, block, streams);
+    return client.getBinaryMultiBulkReply();
+  }
+
+  @Override
+  public List<byte[]> xreadGroup(byte[] groupname, byte[] consumer, int count, long block, boolean noAck,
+                                 Map<byte[], byte[]> streams) {
+    checkIsInMultiOrPipeline();
+    client.xreadGroup(groupname, consumer, count, block, noAck, streams);
+    return client.getBinaryMultiBulkReply();
+  }
+
+  @Override
+  public byte[] xadd(byte[] key, byte[] id, Map<byte[], byte[]> hash, long maxLen, boolean approximateLength) {
+    checkIsInMultiOrPipeline();
+    client.xadd(key, id, hash, maxLen, approximateLength);
+    return client.getBinaryBulkReply();
+  }
+
+  @Override
+  public Long xlen(byte[] key) {
+    checkIsInMultiOrPipeline();
+    client.xlen(key);
+    return client.getIntegerReply();
+  }
+
+  @Override
+  public List<byte[]> xrange(byte[] key, byte[] start, byte[] end, long count) {
+    checkIsInMultiOrPipeline();
+    client.xrange(key, start, end, count);
+    return client.getBinaryMultiBulkReply();
+  }
+
+  @Override
+  public List<byte[]> xrevrange(byte[] key, byte[] end, byte[] start, int count) {
+    checkIsInMultiOrPipeline();
+    client.xrevrange(key, end, start, count);
+    return client.getBinaryMultiBulkReply();
+  }
+
+  @Override
+  public Long xack(byte[] key, byte[] group, byte[]... ids) {
+    checkIsInMultiOrPipeline();
+    client.xack(key, group, ids);
+    return client.getIntegerReply();
+  }
+
+  @Override
+  public String xgroupCreate(byte[] key, byte[] consumer, byte[] id, boolean makeStream) {
+    checkIsInMultiOrPipeline();
+    client.xgroupCreate(key, consumer, id, makeStream);
+    return client.getStatusCodeReply();
+  }
+
+  @Override
+  public String xgroupSetID(byte[] key, byte[] consumer, byte[] id) {
+    checkIsInMultiOrPipeline();
+    client.xgroupSetID(key, consumer, id);
+    return client.getStatusCodeReply();
+  }
+
+  @Override
+  public Long xgroupDestroy(byte[] key, byte[] consumer) {
+    checkIsInMultiOrPipeline();
+    client.xgroupDestroy(key, consumer);
+    return client.getIntegerReply();
+  }
+
+  @Override
+  public String xgroupDelConsumer(byte[] key, byte[] consumer, byte[] consumerName) {
+    checkIsInMultiOrPipeline();
+    client.xgroupDelConsumer(key, consumer, consumerName);
+    return client.getStatusCodeReply();
+  }
+
+  @Override
+  public Long xdel(byte[] key, byte[]... ids) {
+    checkIsInMultiOrPipeline();
+    client.xdel(key, ids);
+    return client.getIntegerReply();
+  }
+
+  @Override
+  public Long xtrim(byte[] key, long maxLen, boolean approximateLength) {
+    checkIsInMultiOrPipeline();
+    client.xtrim(key, maxLen, approximateLength);
+    return client.getIntegerReply();
+  }
+
+  @Override
+  public List<byte[]> xpending(byte[] key, byte[] groupname, byte[] start, byte[] end, int count, byte[] consumername) {
+    checkIsInMultiOrPipeline();
+    client.xpending(key, groupname, start, end, count, consumername);
+    return client.getBinaryMultiBulkReply();  }
+
+  @Override
+  public   List<byte[]> xclaim(byte[] key, byte[] groupname, byte[] consumername, long minIdleTime, long newIdleTime, int retries, boolean force, byte[][] ids){
+    checkIsInMultiOrPipeline();
+    client.xclaim(key, groupname, consumername, minIdleTime, newIdleTime, retries, force, ids);
+    return client.getBinaryMultiBulkReply();
+  }
+
 }
